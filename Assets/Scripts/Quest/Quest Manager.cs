@@ -26,19 +26,24 @@ public class QuestManager : MonoBehaviour
     {
         foreach (var quest in activeQuests)
         {
-            quest.OnProgress();
-            OnQuestUpdated?.Invoke(quest);
-
-            //
-            if (quest.IsCompleted)
+            if (quest is T && !quest.IsCompleted)
             {
-                CheckAllQuestsCompleted();
+                quest.OnProgress();
+                OnQuestUpdated?.Invoke(quest);
+
+                if (quest.IsCompleted)
+                {
+                    CheckAllQuestsCompleted();
+                }
             }
         }
     }
 
     void CheckAllQuestsCompleted()
     {
+       
+
+        
         if (AreAllQuestsCompleted())
         {
             OnAllQuestsCompleted?.Invoke();
@@ -46,6 +51,7 @@ public class QuestManager : MonoBehaviour
     }
     public bool AreAllQuestsCompleted()
     {
+       
         foreach (var quest in activeQuests)
         {
             if (!quest.IsCompleted)

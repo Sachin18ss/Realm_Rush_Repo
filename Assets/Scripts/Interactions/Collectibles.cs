@@ -3,11 +3,11 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     private bool canCollect;
-    private Camera cam;
+    public  Camera cam;
 
     private void Start()
     {
-        cam = Camera.main;
+       // cam = Camera.main;
     }
 
     private void Update()
@@ -28,20 +28,19 @@ public class Collectible : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void SetCanCollect(bool value)
     {
-        if (other.CompareTag("Player"))
-        {
-            canCollect = true;
-        }
+        canCollect = value;
     }
 
-    private void OnTriggerExit(Collider other)
+    public void TryCollect(GameObject hitObject)
     {
-        if (other.CompareTag("Player"))
-        {
-            canCollect = false;
-        }
+        if (!canCollect) return;
+
+        // check if ray hit THIS collectible or its children
+        if (hitObject.transform.root != transform) return;
+
+        Collect();
     }
 
     private void Collect()

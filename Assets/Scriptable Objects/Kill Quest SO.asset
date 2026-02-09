@@ -15,4 +15,5 @@ MonoBehaviour:
   title: Kill Enemies
   description: Kill Enemies that you encouter
   goalCount: 20
-  currentCount: 0
+  currentCount: 2
+  currentCountText: {fileID: 0}

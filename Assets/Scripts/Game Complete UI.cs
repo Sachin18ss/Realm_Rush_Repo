@@ -5,15 +5,24 @@ public class GameCompleteUI : MonoBehaviour
 {
     public TextMeshProUGUI completeText;
 
-    private void Start()
+    private void Awake()
     {
         completeText.gameObject.SetActive(false);
     }
 
-    private void OnEnable()
+    private void Start()
     {
+        
         if (QuestManager.Instance != null)
+        {
             QuestManager.Instance.OnAllQuestsCompleted += OnGameCompleted;
+
+            
+            if (QuestManager.Instance.AreAllQuestsCompleted())
+            {
+                OnGameCompleted();
+            }
+        }
     }
 
     private void OnDisable()
@@ -25,6 +34,8 @@ public class GameCompleteUI : MonoBehaviour
     void OnGameCompleted()
     {
         completeText.gameObject.SetActive(true);
+        
+
         //completeText.text = "ALL QUESTS COMPLETED!";
         Time.timeScale = 0f; 
     }

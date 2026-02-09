@@ -15,5 +15,5 @@ MonoBehaviour:
   title: Explore Zone
   description: Enter the marked Zone to Expore
   goalCount: 4
-  currentCount: 0
+  currentCount: 1
   currentCountText: {fileID: 0}

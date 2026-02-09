@@ -15,4 +15,5 @@ MonoBehaviour:
   title: Fetch Collectibles
   description: Find and Fetch the 10 collectibles
   goalCount: 10
-  currentCount: 0
+  currentCount: 2
+  currentCountText: {fileID: 0}
