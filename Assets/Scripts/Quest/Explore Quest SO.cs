@@ -5,6 +5,6 @@ public class ExploreQuestSO : QuestScriptableObjects
 {
     public override void OnProgress()
     {
-        currentCount = goalCount; // instant completion
+        currentCount ++; // instant completion
     }
 }

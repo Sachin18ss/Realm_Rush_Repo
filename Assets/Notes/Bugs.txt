@@ -1,1 +1,3 @@
-1. Enemies are not spawing 
+1. Bullets are not destroying
+2. Enemeies spawning in same position
+3. Kill is not collecting in UI

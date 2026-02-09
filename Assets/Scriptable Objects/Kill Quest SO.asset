@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51664037762db44bace611f0fa97982, type: 3}
   m_Name: Kill Quest SO
   m_EditorClassIdentifier: Assembly-CSharp::KillQuestSO
-  title: 
-  description: 
-  goalCount: 0
+  title: Kill Enemies
+  description: Kill Enemies that you encouter
+  goalCount: 20
   currentCount: 0

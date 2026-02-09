@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class QuestManager : MonoBehaviour
 {
@@ -7,25 +8,42 @@ public class QuestManager : MonoBehaviour
 
     public List<QuestScriptableObjects> activeQuests;
 
+    
+    public event Action<QuestScriptableObjects> OnQuestUpdated;
+    public event Action OnAllQuestsCompleted;
+
     private void Awake()
     {
         Instance = this;
 
         foreach (var quest in activeQuests)
-            quest.ResetQuest();
+        {
+            quest.ResetQuest(); 
+        }
     }
 
     public void ReportProgress<T>() where T : QuestScriptableObjects
     {
         foreach (var quest in activeQuests)
         {
-            if (quest is T && !quest.IsCompleted)
+            quest.OnProgress();
+            OnQuestUpdated?.Invoke(quest);
+
+            //
+            if (quest.IsCompleted)
             {
-                quest.OnProgress();
+                CheckAllQuestsCompleted();
             }
         }
     }
 
+    void CheckAllQuestsCompleted()
+    {
+        if (AreAllQuestsCompleted())
+        {
+            OnAllQuestsCompleted?.Invoke();
+        }
+    }
     public bool AreAllQuestsCompleted()
     {
         foreach (var quest in activeQuests)

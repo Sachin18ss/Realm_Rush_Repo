@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f527d742f5043a4ca417c663089eef7, type: 3}
-  m_Name: Enemy Movement SO
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovementSO
-  moveSpeed: 4.92
-  chaseRange: 50
-  stopDistance: 1.5
+  m_Script: {fileID: 11500000, guid: 3b47b6ed764925e4d802f5219bca9eff, type: 3}
+  m_Name: Player Data SO
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDataScriptableObject

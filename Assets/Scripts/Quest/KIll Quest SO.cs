@@ -6,5 +6,6 @@ public class KillQuestSO : QuestScriptableObjects
     public override void OnProgress()
     {
         currentCount++;
+        
     }
 }

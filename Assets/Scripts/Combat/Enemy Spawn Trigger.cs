@@ -14,7 +14,6 @@ public class EnemySpawnTrigger : MonoBehaviour
 
         triggered = true;
         spawner.SpawnEnemies(enemyCount);
-
         // Optional: disable trigger completely
         gameObject.SetActive(false);
     }
