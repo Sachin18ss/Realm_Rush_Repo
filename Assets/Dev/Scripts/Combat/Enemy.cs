@@ -4,20 +4,20 @@ public class Enemy : MonoBehaviour
 {
     public int health = 4;
 
-    public GameObject bulletPrefab;
-    public Transform firePoint;
-    public float bulletSpeed = 10f;
-    public float shootInterval = 2f;
+    //public GameObject bulletPrefab;
+    //public Transform firePoint;
+    //public float bulletSpeed = 10f;
+    //public float shootInterval = 2f;
 
     private Transform player;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        InvokeRepeating(nameof(ShootAtPlayer), 1f, shootInterval);
+        //InvokeRepeating(nameof(ShootAtPlayer), 1f, shootInterval);
     }
 
-    void ShootAtPlayer()
+    /*void ShootAtPlayer()
     {
         if (player == null) return;
 
@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
         rb.linearVelocity = direction * bulletSpeed;
         Destroy(bullet, 5f);
 
-    }
+    }*/
     public void TakeDamage()
     {
         health--;

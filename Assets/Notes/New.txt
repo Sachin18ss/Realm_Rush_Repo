@@ -1,0 +1,6 @@
+1. Better Patrol - different points different enemies will move
+2. If player crossed some trigger enemy will stop chasing 
+
+3. Two types of enemies - 
+	1. Follow NavMesh
+	2. Follow A* algorithm

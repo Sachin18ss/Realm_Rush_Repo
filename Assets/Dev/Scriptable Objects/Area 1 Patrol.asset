@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f44c1be90f3b61846af951474f1ef0e7, type: 3}
-  m_Name: Area 2
+  m_Name: Area 1 Patrol
   m_EditorClassIdentifier: Assembly-CSharp::PatrolPathSO
-  patrolArea: Patrol Poins Area 2
+  patrolArea: Patrol Poins Area 1

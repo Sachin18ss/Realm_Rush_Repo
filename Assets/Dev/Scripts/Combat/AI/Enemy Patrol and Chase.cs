@@ -11,6 +11,7 @@ public class EnemyPatrolAndChase : MonoBehaviour
     private Transform player;
     private int patrolIndex;
     private bool isChasing;
+    private bool chaseAllowed = true;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class EnemyPatrolAndChase : MonoBehaviour
                 for (int i = 0; i < patrolPoints.Length; i++)
                     patrolPoints[i] = root.transform.GetChild(i);
 
+                patrolIndex = Random.Range(0, patrolPoints.Length);
                 GoToNextPatrolPoint();
             }
             else
@@ -50,7 +52,7 @@ public class EnemyPatrolAndChase : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        if (distance <= chaseRange)
+        if (distance <= chaseRange && chaseAllowed)
             ChasePlayer();
         else
             Patrol();
@@ -70,13 +72,38 @@ public class EnemyPatrolAndChase : MonoBehaviour
 
     void GoToNextPatrolPoint()
     {
+        if (patrolPoints.Length == 0) return;
+
+        int nextIndex;
+        do
+        {
+            nextIndex = Random.Range(0, patrolPoints.Length);
+        }
+        while (nextIndex == patrolIndex);
+
+        patrolIndex = nextIndex;
+
         agent.SetDestination(patrolPoints[patrolIndex].position);
-        patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+        
     }
 
     void ChasePlayer()
     {
         isChasing = true;
         agent.SetDestination(player.position);
+    }
+
+    public void ForceReturnToPatrol()
+    {
+        isChasing = false;
+        GoToNextPatrolPoint();
+    }
+
+    public void SetChaseAllowed(bool allowed)
+    {
+        chaseAllowed = allowed;
+
+        if (!allowed)
+            ForceReturnToPatrol();
     }
 }

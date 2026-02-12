@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -6,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     public Transform spawnCenter;
     public float spawnRadius = 4f;
 
+    private List<EnemyPatrolAndChase> spawnedEnemies = new();
     public void SpawnEnemies(int count, PatrolPathSO patrolPath)
     {
         for (int i = 0; i < count; i++)
@@ -18,6 +20,26 @@ public class EnemySpawner : MonoBehaviour
 
             EnemyPatrolAndChase enemy = enemyObj.GetComponent<EnemyPatrolAndChase>();
             enemy.patrolPath = patrolPath;
+
+            spawnedEnemies.Add(enemy);
+        }
+    }
+
+    public void DisableChaseInThisRoom()
+    {
+        foreach (var enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+                enemy.SetChaseAllowed(false);
+        }
+    }
+
+    public void EnableChaseInThisRoom()
+    {
+        foreach (var enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+                enemy.SetChaseAllowed(true);
         }
     }
 }
