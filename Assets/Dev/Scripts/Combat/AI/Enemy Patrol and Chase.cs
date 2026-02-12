@@ -1,0 +1,82 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+public class EnemyPatrolAndChase : MonoBehaviour
+{
+    public float chaseRange = 10f;
+    public PatrolPathSO patrolPath;
+
+    private NavMeshAgent agent;
+    private Transform[] patrolPoints;
+    private Transform player;
+    private int patrolIndex;
+    private bool isChasing;
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Start()
+    {
+        // Find player
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+            player = playerObj.transform;
+
+        // Resolve patrol points from scene
+        if (patrolPath != null)
+        {
+            GameObject root = GameObject.Find(patrolPath.patrolArea);
+
+            if (root != null)
+            {
+                patrolPoints = new Transform[root.transform.childCount];
+                for (int i = 0; i < patrolPoints.Length; i++)
+                    patrolPoints[i] = root.transform.GetChild(i);
+
+                GoToNextPatrolPoint();
+            }
+            else
+            {
+                Debug.LogError($"Patrol root not found: {patrolPath.patrolArea}");
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (player == null || patrolPoints == null) return;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (distance <= chaseRange)
+            ChasePlayer();
+        else
+            Patrol();
+    }
+
+    void Patrol()
+    {
+        if (isChasing)
+        {
+            isChasing = false;
+            GoToNextPatrolPoint();
+        }
+
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            GoToNextPatrolPoint();
+    }
+
+    void GoToNextPatrolPoint()
+    {
+        agent.SetDestination(patrolPoints[patrolIndex].position);
+        patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+    }
+
+    void ChasePlayer()
+    {
+        isChasing = true;
+        agent.SetDestination(player.position);
+    }
+}

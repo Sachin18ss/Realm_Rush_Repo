@@ -4,17 +4,20 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public Transform spawnCenter;
-    public float spawnRadius = 5f;
-    public void SpawnEnemies(int count)
+    public float spawnRadius = 4f;
+
+    public void SpawnEnemies(int count, PatrolPathSO patrolPath)
     {
-        
         for (int i = 0; i < count; i++)
         {
             Vector3 offset = Random.insideUnitSphere * spawnRadius;
-            offset.y = 0f; // keep on ground
-            Vector3 spawnPos = spawnCenter.position + offset;
+            offset.y = 0f;
 
-            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            GameObject enemyObj =
+                Instantiate(enemyPrefab, spawnCenter.position + offset, Quaternion.identity);
+
+            EnemyPatrolAndChase enemy = enemyObj.GetComponent<EnemyPatrolAndChase>();
+            enemy.patrolPath = patrolPath;
         }
     }
 }
