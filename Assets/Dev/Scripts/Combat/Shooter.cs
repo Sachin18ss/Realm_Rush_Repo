@@ -4,7 +4,8 @@ public class Shooter : MonoBehaviour
 {
     public Camera cam;
     public float range = 100f;
-
+    public Transform bulletSpawnPoint;
+    public BulletPool bulletPool;
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -18,6 +19,14 @@ public class Shooter : MonoBehaviour
                 {
                     enemy.TakeDamage();
                 }
+            }
+
+            GameObject bullet = bulletPool.GetBullet();
+            if(bullet!=null)
+            {
+                bullet.transform.position = bulletSpawnPoint.position + transform.forward;
+                bullet.transform.rotation = bulletSpawnPoint.rotation;
+                bullet.SetActive(true);
             }
         }
     }
